@@ -52,7 +52,10 @@ def get_answer(youtube_url, question):
     video_id = extract_video_id(youtube_url)
 
     # Fetch transcript
-    transcript = YouTubeTranscriptApi().fetch(video_id)
+    try:
+        transcript = YouTubeTranscriptApi().fetch(video_id)
+    except Exception as e:
+        return f"Error fetching transcript: {e}"
 
     transcript_text = " ".join(
         snippet.text for snippet in transcript
@@ -105,7 +108,7 @@ Question:
 
     # LLM
     llm = ChatGoogleGenerativeAI(
-        model="gemini-3.5-flash",
+        model="gemini-2.5-flash",
         google_api_key=GOOGLE_API_KEY,
         temperature=0.2
     )
