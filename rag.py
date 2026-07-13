@@ -55,7 +55,7 @@ def get_answer(youtube_url, question):
     try:
         transcript = YouTubeTranscriptApi().fetch(video_id)
     except Exception as e:
-        return f"Error fetching transcript: {e}"
+        return f"Unable to fetch the transcript. Details: {e}"
 
     transcript_text = " ".join(
         snippet.text for snippet in transcript
